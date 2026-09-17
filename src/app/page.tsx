@@ -22,12 +22,20 @@ export default function LibraryPage() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-5xl px-5 py-12">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">AmpSelector</h1>
-        <p className="mt-1.5 text-sm text-muted">
-          Seus presets do Cuvave Cube Baby, música por música ·{" "}
-          {presets.length === 1 ? "1 preset" : `${presets.length} presets`}
-        </p>
+      <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">AmpSelector</h1>
+          <p className="mt-1.5 text-sm text-muted">
+            Seus presets do Cuvave Cube Baby, música por música ·{" "}
+            {presets.length === 1 ? "1 preset" : `${presets.length} presets`}
+          </p>
+        </div>
+        <Link
+          href="/tocar"
+          className="rounded-xl border border-line bg-surface px-4 py-2.5 text-sm transition-colors hover:border-accent/50"
+        >
+          Braço virtual →
+        </Link>
       </header>
 
       <div className="mb-4">

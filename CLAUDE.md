@@ -20,6 +20,12 @@ o Claude, numa conversa como esta.
   o próximo palpite.
 - `src/data/pedal-spec.ts` define os knobs, suas faixas de valor e as
   listas de tipos de amp/cabinet/modulação.
+- `src/lib/audioEngine.ts` traduz um preset numa cadeia de Web Audio para
+  o braço virtual (`/tocar`): corda sintetizada por Karplus-Strong →
+  tone/captador da guitarra → amp (waveshaper) → cabinet (filtros) →
+  delay/modulação → reverb → volume. É uma **aproximação**, não o DSP do
+  Cube Baby. `AMP_PROFILES` e `CAB_PROFILES` são indexados na mesma ordem
+  de `AMP_TYPES` e `CAB_TYPES` — ao mexer numa lista, ajuste a outra.
 - O app **não controla o pedal físico de verdade** — não existe integração
   de software com o Cube Baby (Bluetooth dele só serve pra tocar áudio, não
   pra sincronizar presets). O app é uma ficha de referência visual; o

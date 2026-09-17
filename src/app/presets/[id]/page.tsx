@@ -112,6 +112,15 @@ export default function PresetDetailPage() {
         <span className="sm:hidden"> Deslize o pedal para o lado para ver todos.</span>
       </p>
 
+      <div className="mt-4 flex justify-center">
+        <Link
+          href={`/tocar?preset=${preset.id}`}
+          className="rounded-xl border border-line bg-surface px-4 py-2.5 text-sm transition-colors hover:border-accent/50"
+        >
+          Ouvir no braço virtual →
+        </Link>
+      </div>
+
       <div className="mt-5 grid gap-4">
         <PedalSummary knobs={preset.knobs} />
         <GuitarPanel
