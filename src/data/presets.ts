@@ -13,8 +13,9 @@ import type { Preset } from "@/types/preset";
 export const PRESETS: Preset[] = [
   {
     id: "sweet-child-o-mine-guns-n-roses",
-    song: "Sweet Child O' Mine (riff principal)",
+    song: "Sweet Child O' Mine",
     artist: "Guns N' Roses",
+    section: "riff principal",
     tags: ["rock classico", "riff", "crunch"],
     status: "rascunho-ia",
     knobs: {
@@ -34,6 +35,7 @@ export const PRESETS: Preset[] = [
       key: "Ré maior",
       capo: 0,
       pickup: "ponte",
+      toneKnob: 8,
       notes:
         "Slash tocava uma Gibson Les Paul (captador de ponte) direto num Marshall. O riff fica na região dos trastes 5-8, com bastante ataque de palhetada.",
     },
@@ -45,8 +47,9 @@ export const PRESETS: Preset[] = [
   },
   {
     id: "nothing-else-matters-metallica",
-    song: "Nothing Else Matters (introdução clean)",
+    song: "Nothing Else Matters",
     artist: "Metallica",
+    section: "introdução clean",
     tags: ["clean", "balada", "arpejo"],
     status: "rascunho-ia",
     knobs: {
@@ -66,6 +69,7 @@ export const PRESETS: Preset[] = [
       key: "Mi menor",
       capo: 0,
       pickup: "braço",
+      toneKnob: 6,
       notes: "Toque próximo ao braço para um som mais suave, palhetada leve no arpejo.",
     },
     reasoning:
@@ -97,6 +101,7 @@ export const PRESETS: Preset[] = [
       key: "Fá# menor (com capotraste, pestanas de Sol maior)",
       capo: 2,
       pickup: "central",
+      toneKnob: 7,
       notes: "Strumming com bastante palheta, acordes abertos, sem distorção. Capotraste na 2ª casa é essencial.",
     },
     reasoning:
@@ -107,8 +112,9 @@ export const PRESETS: Preset[] = [
   },
   {
     id: "hotel-california-solo-eagles",
-    song: "Hotel California (solo final)",
+    song: "Hotel California",
     artist: "Eagles",
+    section: "solo final",
     tags: ["solo", "crunch", "classic rock"],
     status: "rascunho-ia",
     knobs: {
@@ -128,6 +134,7 @@ export const PRESETS: Preset[] = [
       key: "Si menor",
       capo: 0,
       pickup: "ponte",
+      toneKnob: 7,
       notes: "O solo é tocado na região aguda do braço (acima do traste 12), com bastante sustain e vibrato.",
     },
     reasoning:
@@ -138,8 +145,9 @@ export const PRESETS: Preset[] = [
   },
   {
     id: "enter-sandman-metallica",
-    song: "Enter Sandman (riff principal)",
+    song: "Enter Sandman",
     artist: "Metallica",
+    section: "riff principal",
     tags: ["riff", "high gain", "metal"],
     status: "rascunho-ia",
     knobs: {
@@ -159,6 +167,7 @@ export const PRESETS: Preset[] = [
       key: "Mi menor (afinação meio tom abaixo, comum no Black Album)",
       capo: 0,
       pickup: "ponte",
+      toneKnob: 8,
       notes: "Riff tocado com bastante palm mute nas cordas graves.",
     },
     reasoning:

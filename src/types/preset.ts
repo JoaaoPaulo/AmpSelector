@@ -19,9 +19,14 @@ export type PresetFootswitches = Record<FootswitchKey, boolean>;
 export type PickupPosition = "braço" | "central" | "ponte";
 
 export interface GuitarInfo {
-  key?: string;
-  capo?: number;
-  pickup?: PickupPosition;
+  /** Tom da música, ex: "Mi menor". */
+  key: string;
+  /** Casa do capotraste; 0 = sem capotraste. */
+  capo: number;
+  /** Posição da chave de 3 tempos da guitarra. */
+  pickup: PickupPosition;
+  /** Knob de tone da própria guitarra: 0 = abafado, 10 = brilhante. */
+  toneKnob: number;
   notes?: string;
 }
 
@@ -52,6 +57,8 @@ export interface Preset {
   id: string;
   song: string;
   artist: string;
+  /** Trecho específico da música, ex: "riff principal", "solo final". */
+  section?: string;
   tags: string[];
   status: PresetStatus;
   knobs: PresetKnobs;

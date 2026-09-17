@@ -1,25 +1,37 @@
 import type { PresetStatus } from "@/types/preset";
 
-const CONFIG: Record<PresetStatus, { label: string; className: string }> = {
+const CONFIG: Record<PresetStatus, { label: string; dot: string; className: string }> = {
   "rascunho-ia": {
-    label: "Rascunho (IA)",
-    className: "bg-yellow-900/40 text-yellow-300 border-yellow-700",
+    label: "Rascunho",
+    dot: "bg-amber-400",
+    className: "bg-amber-500/10 text-amber-300 ring-amber-500/25",
   },
   "testado-aprovado": {
-    label: "Testado e aprovado",
-    className: "bg-green-900/40 text-green-300 border-green-700",
+    label: "Aprovado",
+    dot: "bg-emerald-400",
+    className: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/25",
   },
   "precisa-ajuste": {
     label: "Precisa ajuste",
-    className: "bg-red-900/40 text-red-300 border-red-700",
+    dot: "bg-rose-400",
+    className: "bg-rose-500/10 text-rose-300 ring-rose-500/25",
   },
 };
 
 export function StatusBadge({ status }: { status: PresetStatus }) {
   const config = CONFIG[status];
   return (
-    <span className={`text-xs px-2 py-1 rounded-full border whitespace-nowrap ${config.className}`}>
+    <span
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ${config.className}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${config.dot}`} />
       {config.label}
     </span>
   );
 }
+
+export const STATUS_LABELS: Record<PresetStatus, string> = {
+  "rascunho-ia": "Rascunho (IA)",
+  "testado-aprovado": "Testado e aprovado",
+  "precisa-ajuste": "Precisa ajuste",
+};
