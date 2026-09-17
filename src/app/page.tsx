@@ -32,9 +32,9 @@ export default function LibraryPage() {
         </div>
         <Link
           href="/tocar"
-          className="rounded-xl border border-line bg-surface px-4 py-2.5 text-sm transition-colors hover:border-accent/50"
+          className="rounded-md border border-line bg-surface-2 px-4 py-2.5 text-sm font-medium text-white/90 transition-colors hover:border-white/25"
         >
-          Braço virtual →
+          Braço virtual
         </Link>
       </header>
 
@@ -43,7 +43,7 @@ export default function LibraryPage() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Buscar por música, artista ou tag…"
-          className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted/70 focus:border-accent/60"
+          className="w-full rounded-md border border-line bg-surface px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted/70 focus:border-accent/60"
         />
       </div>
 
@@ -55,10 +55,10 @@ export default function LibraryPage() {
               key={option.value}
               type="button"
               onClick={() => setFilter(option.value)}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+              className={`rounded border px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 isActive
-                  ? "bg-accent text-white"
-                  : "bg-surface text-muted ring-1 ring-line hover:text-white/85"
+                  ? "border-accent bg-accent text-white"
+                  : "border-line bg-surface-2 text-white/70 hover:border-white/25 hover:text-white"
               }`}
             >
               {option.label}
@@ -72,7 +72,7 @@ export default function LibraryPage() {
           <Link
             key={preset.id}
             href={`/presets/${preset.id}`}
-            className="group flex flex-col rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-accent/50 hover:bg-surface-2"
+            className="group flex flex-col rounded-lg border border-line bg-surface p-4 transition-colors hover:border-white/25 hover:bg-surface-2"
           >
             <div className="mb-3 flex items-start justify-between gap-2">
               <div className="min-w-0">
@@ -89,7 +89,7 @@ export default function LibraryPage() {
               {preset.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md bg-surface-2 px-2 py-0.5 text-[11px] text-muted ring-1 ring-line"
+                  className="rounded border border-line bg-surface-2 px-2 py-0.5 text-[11px] text-white/60"
                 >
                   {tag}
                 </span>
@@ -107,7 +107,7 @@ export default function LibraryPage() {
       </div>
 
       {visible.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-line py-16 text-center">
+        <div className="rounded-lg border border-dashed border-line py-16 text-center">
           <p className="text-sm text-muted">Nenhum preset encontrado.</p>
         </div>
       )}

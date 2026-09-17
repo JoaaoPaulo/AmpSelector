@@ -167,7 +167,6 @@ export function Knob({
             stroke={color}
             strokeWidth={3}
             strokeLinecap="round"
-            style={{ filter: `drop-shadow(0 0 3px ${color})` }}
           />
 
           <circle cx={center} cy={center} r={capRadius + 1.5} fill={`url(#${gradientId}-bezel)`} />

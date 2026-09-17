@@ -4,17 +4,17 @@ const CONFIG: Record<PresetStatus, { label: string; dot: string; className: stri
   "rascunho-ia": {
     label: "Rascunho",
     dot: "bg-amber-400",
-    className: "bg-amber-500/10 text-amber-300 ring-amber-500/25",
+    className: "border-amber-500/35 bg-amber-500/15 text-amber-200",
   },
   "testado-aprovado": {
     label: "Aprovado",
     dot: "bg-emerald-400",
-    className: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/25",
+    className: "border-emerald-500/35 bg-emerald-500/15 text-emerald-200",
   },
   "precisa-ajuste": {
     label: "Precisa ajuste",
     dot: "bg-rose-400",
-    className: "bg-rose-500/10 text-rose-300 ring-rose-500/25",
+    className: "border-rose-500/35 bg-rose-500/15 text-rose-200",
   },
 };
 
@@ -22,7 +22,7 @@ export function StatusBadge({ status }: { status: PresetStatus }) {
   const config = CONFIG[status];
   return (
     <span
-      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ${config.className}`}
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded border px-2 py-1 text-[11px] font-medium ${config.className}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${config.dot}`} />
       {config.label}

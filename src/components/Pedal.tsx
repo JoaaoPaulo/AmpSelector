@@ -28,7 +28,7 @@ export function Pedal({ knobs, footswitches, onKnobChange, onFootswitchToggle }:
   return (
     <div className="rail overflow-x-auto pb-1">
       <div
-        className="relative mx-auto min-w-[720px] rounded-[22px] px-7 pb-6 pt-5"
+        className="relative mx-auto min-w-[720px] rounded-[10px] px-7 pb-6 pt-5"
         style={{
           background: "linear-gradient(180deg,#262a31 0%,#16191f 42%,#0d0f13 100%)",
           border: "1px solid #2f343d",
@@ -44,10 +44,7 @@ export function Pedal({ knobs, footswitches, onKnobChange, onFootswitchToggle }:
         <div className="mb-5 flex items-center justify-between px-3">
           <span className="text-[15px] font-black italic tracking-tight text-white/90">CUVAVE</span>
           <div className="flex items-center gap-2">
-            <span
-              className="h-[7px] w-[7px] rounded-full"
-              style={{ background: "#3b82f6", boxShadow: "0 0 8px #3b82f6, 0 0 16px #3b82f680" }}
-            />
+            <span className="h-[7px] w-[7px] rounded-full" style={{ background: "#3b82f6" }} />
             <span className="text-[9px] font-medium tracking-[0.2em] text-white/35">CUBE BABY</span>
           </div>
         </div>

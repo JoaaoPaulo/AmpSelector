@@ -79,7 +79,7 @@ export function PlayClient() {
         <select
           value={preset.id}
           onChange={(event) => setPresetId(event.target.value)}
-          className="min-w-[260px] flex-1 rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none focus:border-accent/60"
+          className="min-w-[260px] flex-1 rounded-md border border-line bg-surface px-4 py-3 text-sm outline-none focus:border-accent/60"
         >
           {presets.map((item) => (
             <option key={item.id} value={item.id}>
@@ -91,7 +91,7 @@ export function PlayClient() {
         <StatusBadge status={preset.status} />
         <Link
           href={`/presets/${preset.id}`}
-          className="rounded-xl border border-line bg-surface px-4 py-3 text-sm transition-colors hover:border-accent/50"
+          className="rounded-md border border-line bg-surface-2 px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:border-white/25"
         >
           Ver knobs
         </Link>
@@ -101,7 +101,7 @@ export function PlayClient() {
         <PedalSummary knobs={preset.knobs} />
       </div>
 
-      <section className="rounded-2xl border border-line bg-surface p-4 sm:p-5">
+      <section className="rounded-lg border border-line bg-surface p-4 sm:p-5">
         {!audioOn ? (
           <div className="flex flex-col items-center gap-3 py-10">
             <p className="text-center text-sm text-muted">
@@ -110,7 +110,7 @@ export function PlayClient() {
             <button
               type="button"
               onClick={enableAudio}
-              className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-500"
+              className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-500"
             >
               Ligar o som
             </button>
@@ -156,7 +156,7 @@ export function PlayClient() {
         )}
       </section>
 
-      <p className="mt-5 rounded-xl border border-line bg-surface-2 p-4 text-[13px] leading-relaxed text-muted">
+      <p className="mt-4 rounded-lg border border-line bg-surface p-4 text-[13px] leading-relaxed text-muted">
         <span className="text-white/75">Sobre o som:</span> a corda é sintetizada e os efeitos são
         uma aproximação feita a partir dos valores do preset — o processamento interno do Cube Baby
         é fechado, então isso não reproduz o pedal fielmente. Serve para sentir a direção do preset

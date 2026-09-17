@@ -18,11 +18,8 @@ export function Footswitch({ label, blocks, active, color, onToggle }: Footswitc
       className="group flex w-[112px] flex-col items-center gap-2"
     >
       <span
-        className="h-2 w-2 rounded-full transition-all duration-200"
-        style={{
-          background: active ? color : "#2a3344",
-          boxShadow: active ? `0 0 8px ${color}, 0 0 16px ${color}80` : "none",
-        }}
+        className="h-2 w-2 rounded-full transition-colors duration-200"
+        style={{ background: active ? color : "#333e52" }}
       />
 
       <span

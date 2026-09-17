@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090e18;
-  --surface: #111a2b;
-  --surface-2: #17223a;
-  --line: #243149;
-  --foreground: #e9eff9;
-  --muted: #8b9bb6;
+  --background: #141a26;
+  --surface: #1c2433;
+  --surface-2: #26303f;
+  --line: #36415a;
+  --foreground: #eaeff7;
+  --muted: #96a3b8;
   --accent: #3b82f6;
 }
 
@@ -29,12 +29,6 @@ body {
 
 body {
   background-color: var(--background);
-  background-image: radial-gradient(
-    900px 520px at 50% -240px,
-    rgba(59, 130, 246, 0.12),
-    transparent 70%
-  );
-  background-repeat: no-repeat;
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -50,7 +44,7 @@ body {
 
 .rail::-webkit-scrollbar-thumb {
   background: var(--line);
-  border-radius: 999px;
+  border-radius: 3px;
 }
 
 .rail::-webkit-scrollbar-track {

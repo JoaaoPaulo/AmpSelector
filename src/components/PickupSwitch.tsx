@@ -24,7 +24,7 @@ export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
   return (
     <div className="flex flex-col items-center gap-3">
       <div
-        className="relative w-[168px] overflow-hidden rounded-xl border border-line"
+        className="relative w-[168px] overflow-hidden rounded-md border border-line"
         style={{
           height: PLATE_HEIGHT,
           background: "linear-gradient(180deg,#1b2231 0%,#10151f 100%)",
@@ -43,8 +43,7 @@ export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
               style={{
                 left: x - 4,
                 top: y - 4,
-                background: isActive ? "#f59e0b" : "#2f3a4d",
-                boxShadow: isActive ? "0 0 8px #f59e0b" : "none",
+                background: isActive ? "#f59e0b" : "#39445a",
               }}
             />
           );
@@ -90,10 +89,10 @@ export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
               key={position.value}
               type="button"
               onClick={() => onChange(position.value)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`rounded border px-3 py-1.5 text-xs font-medium transition-colors ${
                 isActive
-                  ? "bg-amber-500/15 text-amber-300 ring-1 ring-amber-500/40"
-                  : "text-muted hover:bg-white/5 hover:text-white/80"
+                  ? "border-amber-500/50 bg-amber-500/20 text-amber-200"
+                  : "border-line bg-surface-2 text-white/70 hover:border-white/25 hover:text-white"
               }`}
             >
               {position.label}
