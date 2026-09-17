@@ -1,0 +1,170 @@
+import type { Preset } from "@/types/preset";
+
+/**
+ * Biblioteca de presets. Esta é a fonte de verdade oficial do projeto.
+ * Ajustes feitos pelo usuário direto no app ficam sobrepostos via
+ * localStorage (ver src/lib/presetStore.ts) até serem colados de volta
+ * aqui por uma sessão do Claude.
+ *
+ * Presets com status "rascunho-ia" ainda não foram testados na guitarra
+ * física — são um primeiro palpite baseado em pesquisa sobre o tom/rig
+ * usado na gravação original.
+ */
+export const PRESETS: Preset[] = [
+  {
+    id: "sweet-child-o-mine-guns-n-roses",
+    song: "Sweet Child O' Mine (riff principal)",
+    artist: "Guns N' Roses",
+    tags: ["rock classico", "riff", "crunch"],
+    status: "rascunho-ia",
+    knobs: {
+      volume: 7,
+      irCab: 4,
+      reverb: 2,
+      mix: 2,
+      fb: 3,
+      time: 3,
+      mod: 0,
+      tone: 6,
+      gain: 5,
+      type: 2,
+    },
+    footswitches: { a: true, b: false, c: true },
+    guitar: {
+      key: "Ré maior",
+      capo: 0,
+      pickup: "ponte",
+      notes:
+        "Slash tocava uma Gibson Les Paul (captador de ponte) direto num Marshall. O riff fica na região dos trastes 5-8, com bastante ataque de palhetada.",
+    },
+    reasoning:
+      "O riff é um crunch de médio gain, bem definido, sem muito efeito por cima — Slash usava basicamente Les Paul + Marshall JCM800. Por isso: TYPE em crunch britânico, GAIN moderado (não é um riff de metal), TONE levemente brilhante pra dar definição às notas rápidas. Delay e modulação desligados (footswitch B off) porque a gravação original do riff é seca. Reverb bem discreto, só um verniz de sala.",
+    feedback: [],
+    createdAt: "2026-09-17T00:00:00.000Z",
+    updatedAt: "2026-09-17T00:00:00.000Z",
+  },
+  {
+    id: "nothing-else-matters-metallica",
+    song: "Nothing Else Matters (introdução clean)",
+    artist: "Metallica",
+    tags: ["clean", "balada", "arpejo"],
+    status: "rascunho-ia",
+    knobs: {
+      volume: 6,
+      irCab: 1,
+      reverb: 5,
+      mix: 3,
+      fb: 2,
+      time: 4,
+      mod: 0,
+      tone: 5,
+      gain: 1,
+      type: 0,
+    },
+    footswitches: { a: true, b: true, c: true },
+    guitar: {
+      key: "Mi menor",
+      capo: 0,
+      pickup: "braço",
+      notes: "Toque próximo ao braço para um som mais suave, palhetada leve no arpejo.",
+    },
+    reasoning:
+      "A introdução é tocada limpa, com uma modulação sutil (chorus) característica do tom de James Hetfield nessa faixa. TYPE em preamp limpo, GAIN bem baixo, reverb mais presente pra dar ambiência à parte clean, delay discreto (time curto, mix baixo) só pra engrossar o som, MOD em Chorus.",
+    feedback: [],
+    createdAt: "2026-09-17T00:00:00.000Z",
+    updatedAt: "2026-09-17T00:00:00.000Z",
+  },
+  {
+    id: "wonderwall-oasis",
+    song: "Wonderwall",
+    artist: "Oasis",
+    tags: ["clean", "acordes", "britpop"],
+    status: "rascunho-ia",
+    knobs: {
+      volume: 6,
+      irCab: 0,
+      reverb: 3,
+      mix: 1,
+      fb: 1,
+      time: 2,
+      mod: 0,
+      tone: 5,
+      gain: 2,
+      type: 0,
+    },
+    footswitches: { a: true, b: false, c: true },
+    guitar: {
+      key: "Fá# menor (com capotraste, pestanas de Sol maior)",
+      capo: 2,
+      pickup: "central",
+      notes: "Strumming com bastante palheta, acordes abertos, sem distorção. Capotraste na 2ª casa é essencial.",
+    },
+    reasoning:
+      "Noel Gallagher toca essa música limpa, tom bem 'jangly' britânico. TYPE limpo, GAIN bem baixo, sem delay/mod perceptível (footswitch B off), reverb moderado só pra dar corpo.",
+    feedback: [],
+    createdAt: "2026-09-17T00:00:00.000Z",
+    updatedAt: "2026-09-17T00:00:00.000Z",
+  },
+  {
+    id: "hotel-california-solo-eagles",
+    song: "Hotel California (solo final)",
+    artist: "Eagles",
+    tags: ["solo", "crunch", "classic rock"],
+    status: "rascunho-ia",
+    knobs: {
+      volume: 7,
+      irCab: 2,
+      reverb: 6,
+      mix: 3,
+      fb: 4,
+      time: 5,
+      mod: 0,
+      tone: 6,
+      gain: 4,
+      type: 3,
+    },
+    footswitches: { a: true, b: true, c: true },
+    guitar: {
+      key: "Si menor",
+      capo: 0,
+      pickup: "ponte",
+      notes: "O solo é tocado na região aguda do braço (acima do traste 12), com bastante sustain e vibrato.",
+    },
+    reasoning:
+      "O solo de Don Felder/Joe Walsh tem um crunch quente com bastante reverb de mola e um delay sutil ecoando as notas longas. TYPE em crunch americano (breakup suave, não é metal), GAIN médio, reverb mais alto que o normal pra dar ambiente de 'live room', delay com feedback moderado pra ecoar sem virar bagunça.",
+    feedback: [],
+    createdAt: "2026-09-17T00:00:00.000Z",
+    updatedAt: "2026-09-17T00:00:00.000Z",
+  },
+  {
+    id: "enter-sandman-metallica",
+    song: "Enter Sandman (riff principal)",
+    artist: "Metallica",
+    tags: ["riff", "high gain", "metal"],
+    status: "rascunho-ia",
+    knobs: {
+      volume: 7,
+      irCab: 5,
+      reverb: 1,
+      mix: 0,
+      fb: 0,
+      time: 0,
+      mod: 0,
+      tone: 5,
+      gain: 8,
+      type: 7,
+    },
+    footswitches: { a: true, b: false, c: true },
+    guitar: {
+      key: "Mi menor (afinação meio tom abaixo, comum no Black Album)",
+      capo: 0,
+      pickup: "ponte",
+      notes: "Riff tocado com bastante palm mute nas cordas graves.",
+    },
+    reasoning:
+      "Riff pesado, alto gain, sem delay nem modulação (é um riff seco de palm mute). TYPE em high gain moderno, GAIN alto, reverb quase zero pra manter o riff bem definido e 'seco'. Cabinet 4x12 moderno de alto gain pra dar o grave forte que a música tem.",
+    feedback: [],
+    createdAt: "2026-09-17T00:00:00.000Z",
+    updatedAt: "2026-09-17T00:00:00.000Z",
+  },
+];
