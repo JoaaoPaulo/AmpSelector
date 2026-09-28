@@ -2,16 +2,36 @@
 
 import type { PickupPosition } from "@/types/preset";
 
-const POSITIONS: { value: PickupPosition; label: string; hint: string; angle: number }[] = [
-  { value: "braço", label: "Braço", hint: "mais grave e redondo", angle: -32 },
-  { value: "central", label: "Centro", hint: "equilibrado", angle: 0 },
-  { value: "ponte", label: "Ponte", hint: "mais agudo e cortante", angle: 32 },
+const POSITIONS: {
+  value: PickupPosition;
+  number: string;
+  label: string;
+  hint: string;
+  angle: number;
+}[] = [
+  { value: "ponte", number: "1", label: "Ponte", hint: "mais agudo e cortante", angle: 38 },
+  {
+    value: "ponte+centro",
+    number: "2",
+    label: "Ponte + centro",
+    hint: "o “quack” da Strato",
+    angle: 19,
+  },
+  { value: "centro", number: "3", label: "Centro", hint: "equilibrado", angle: 0 },
+  {
+    value: "centro+braço",
+    number: "4",
+    label: "Centro + braço",
+    hint: "encorpado com brilho",
+    angle: -19,
+  },
+  { value: "braço", number: "5", label: "Braço", hint: "mais grave e redondo", angle: -38 },
 ];
 
 const PLATE_HEIGHT = 84;
-const PIVOT_X = 84;
+const PIVOT_X = 96;
 const PIVOT_Y = 78;
-const DETENT_RADIUS = 52;
+const DETENT_RADIUS = 54;
 
 interface PickupSwitchProps {
   value: PickupPosition;
@@ -19,12 +39,12 @@ interface PickupSwitchProps {
 }
 
 export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
-  const current = POSITIONS.find((position) => position.value === value) ?? POSITIONS[1];
+  const current = POSITIONS.find((position) => position.value === value) ?? POSITIONS[2];
 
   return (
     <div className="flex flex-col items-center gap-3">
       <div
-        className="relative w-[168px] overflow-hidden rounded-md border border-line"
+        className="relative w-[192px] overflow-hidden rounded-md border border-line"
         style={{
           height: PLATE_HEIGHT,
           background: "linear-gradient(180deg,#1b2231 0%,#10151f 100%)",
@@ -65,7 +85,7 @@ export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
             }}
           />
           <span
-            className="h-[38px] w-[5px]"
+            className="h-[40px] w-[5px]"
             style={{ background: "linear-gradient(90deg,#5b6678,#dde4ef 45%,#69748a)" }}
           />
         </div>
@@ -89,19 +109,23 @@ export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
               key={position.value}
               type="button"
               onClick={() => onChange(position.value)}
-              className={`rounded border px-3 py-1.5 text-xs font-medium transition-colors ${
+              title={position.label}
+              className={`h-8 w-8 rounded border text-xs font-medium transition-colors ${
                 isActive
                   ? "border-amber-500/50 bg-amber-500/20 text-amber-200"
                   : "border-line bg-surface-2 text-white/70 hover:border-white/25 hover:text-white"
               }`}
             >
-              {position.label}
+              {position.number}
             </button>
           );
         })}
       </div>
 
-      <p className="text-center text-[11px] text-muted">{current.hint}</p>
+      <p className="text-center text-[11px] leading-tight text-white/70">
+        {current.label}
+        <span className="text-muted"> · {current.hint}</span>
+      </p>
     </div>
   );
 }

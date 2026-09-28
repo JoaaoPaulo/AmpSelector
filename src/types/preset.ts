@@ -16,7 +16,13 @@ export type FootswitchKey = "a" | "b" | "c";
 
 export type PresetFootswitches = Record<FootswitchKey, boolean>;
 
-export type PickupPosition = "braço" | "central" | "ponte";
+/** Chave de 5 posições da Stratocaster, na numeração usual (1 = ponte). */
+export type PickupPosition =
+  | "ponte"
+  | "ponte+centro"
+  | "centro"
+  | "centro+braço"
+  | "braço";
 
 export interface GuitarInfo {
   /** Tom da música, ex: "Mi menor". */

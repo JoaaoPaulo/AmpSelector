@@ -1,59 +1,74 @@
 import type { KnobKey } from "@/types/preset";
 
 /**
- * ATENÇÃO: os nomes em AMP_TYPES e CAB_TYPES são categorias aproximadas, não
- * os nomes oficiais do manual do Cuvave Cube Baby (não confirmados contra o
- * PDF original). Se o usuário compartilhar os nomes exatos, atualize aqui —
- * mas mantenha a ORDEM das posições, porque os presets guardam o índice.
+ * Especificação conferida contra o manual do Cuvave / M-Vave Cube Baby:
+ *
+ * - TYPE: 9 posições de preamp. O pedal NÃO dá nome a elas — é um knob
+ *   numerado que vai do limpo cristalino ao high gain. As descrições abaixo
+ *   são nossa leitura desse gradiente, não nomes oficiais; ajuste conforme
+ *   o usuário for ouvindo cada posição na prática.
+ * - IR CAB: 9 posições. A primeira desliga a simulação de gabinete; as
+ *   outras 8 são os cabinets embutidos (também sem nome no aparelho, e
+ *   substituíveis por IRs próprios via USB).
+ * - MOD: knob contínuo. Centro = desligado, metade da esquerda é Chorus
+ *   (mais intenso quanto mais fecha), metade da direita é Phaser.
  */
 export const AMP_TYPES = [
-  "Clean (estilo Fender)",
-  "Clean boutique",
-  "Crunch britânico (estilo Marshall)",
-  "Crunch americano",
-  "Lead vintage (estilo Vox)",
-  "Lead moderno (estilo Mesa)",
-  "High gain britânico (estilo JCM)",
-  "High gain moderno (estilo 5150)",
-  "Simulação de violão",
+  "1 · Limpo cristalino",
+  "2 · Limpo cheio",
+  "3 · Limpo no limite",
+  "4 · Crunch leve",
+  "5 · Crunch",
+  "6 · Crunch encorpado",
+  "7 · Drive de lead",
+  "8 · High gain",
+  "9 · High gain máximo",
+] as const;
+
+export const AMP_TYPES_SHORT = [
+  "1 · limpo",
+  "2 · limpo",
+  "3 · limpo+",
+  "4 · crunch-",
+  "5 · crunch",
+  "6 · crunch+",
+  "7 · lead",
+  "8 · high gain",
+  "9 · high gain+",
 ] as const;
 
 export const CAB_TYPES = [
-  "1x12 vintage",
-  "1x12 moderno",
-  "2x12 britânico",
-  "2x12 americano",
-  "4x12 vintage",
-  "4x12 moderno high gain",
-  "Corpo de violão",
-  "Direto (sem cabinet)",
-] as const;
-
-/** Versões curtas, para caber embaixo do knob sem quebrar o layout. */
-export const AMP_TYPES_SHORT = [
-  "Clean Fender",
-  "Clean boutique",
-  "Crunch UK",
-  "Crunch US",
-  "Lead Vox",
-  "Lead Mesa",
-  "High gain UK",
-  "High gain 5150",
-  "Violão",
+  "Sem cabinet",
+  "Cabinet 1",
+  "Cabinet 2",
+  "Cabinet 3",
+  "Cabinet 4",
+  "Cabinet 5",
+  "Cabinet 6",
+  "Cabinet 7",
+  "Cabinet 8",
 ] as const;
 
 export const CAB_TYPES_SHORT = [
-  "1x12 vintage",
-  "1x12 moderno",
-  "2x12 UK",
-  "2x12 US",
-  "4x12 vintage",
-  "4x12 high gain",
-  "Violão",
-  "Direto",
+  "desligado",
+  "cab 1",
+  "cab 2",
+  "cab 3",
+  "cab 4",
+  "cab 5",
+  "cab 6",
+  "cab 7",
+  "cab 8",
 ] as const;
 
-export const MOD_TYPES = ["Chorus", "Phaser"] as const;
+/** Centro do knob MOD: abaixo é Chorus, acima é Phaser, no meio desliga. */
+export const MOD_CENTER = 5;
+
+export function formatMod(value: number) {
+  if (Math.abs(value - MOD_CENTER) < 0.5) return "desligado";
+  const depth = Math.round((Math.abs(value - MOD_CENTER) / MOD_CENTER) * 10);
+  return value < MOD_CENTER ? `Chorus ${depth}` : `Phaser ${depth}`;
+}
 
 export const KNOB_COLORS = {
   neutral: "#cbd5e1",
@@ -73,6 +88,10 @@ export interface KnobDef {
   options?: readonly string[];
   /** Rótulos curtos mostrados embaixo do knob. */
   shortOptions?: readonly string[];
+  /** Para knobs contínuos cujo valor não é só um número. */
+  format?: (value: number) => string;
+  /** Knob de centro: o arco sai do meio (MOD). */
+  centered?: boolean;
 }
 
 export const KNOB_DEFS: KnobDef[] = [
@@ -90,7 +109,15 @@ export const KNOB_DEFS: KnobDef[] = [
   { key: "mix", label: "MIX", max: 10, color: KNOB_COLORS.blue, mark: "D" },
   { key: "fb", label: "FB", max: 10, color: KNOB_COLORS.blue, mark: "G" },
   { key: "time", label: "TIME", max: 10, color: KNOB_COLORS.blue, mark: "B" },
-  { key: "mod", label: "MOD", max: MOD_TYPES.length - 1, color: KNOB_COLORS.blue, mark: "E", options: MOD_TYPES },
+  {
+    key: "mod",
+    label: "MOD",
+    max: 10,
+    color: KNOB_COLORS.blue,
+    mark: "E",
+    format: formatMod,
+    centered: true,
+  },
   { key: "tone", label: "TONE", max: 10, color: KNOB_COLORS.red, mark: "▶" },
   { key: "gain", label: "GAIN", max: 10, color: KNOB_COLORS.red, mark: "■" },
   {

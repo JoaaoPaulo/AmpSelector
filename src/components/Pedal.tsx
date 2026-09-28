@@ -61,7 +61,8 @@ export function Pedal({ knobs, footswitches, onKnobChange, onFootswitchToggle }:
                 max={def.max}
                 color={def.color}
                 discrete={Boolean(def.options)}
-                displayValue={(def.shortOptions ?? def.options)?.[value]}
+                origin={def.centered ? "center" : "min"}
+                displayValue={def.format?.(value) ?? (def.shortOptions ?? def.options)?.[value]}
                 onChange={(next) => onKnobChange(def.key, next)}
               />
             );

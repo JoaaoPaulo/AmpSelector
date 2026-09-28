@@ -65,10 +65,24 @@ o Claude, numa conversa como esta.
    corrigido e para qual contexto (gênero/artista/tipo de amp) essa lição
    vale — não só para aquela música específica.
 
-## O que ainda é aproximado
+## A guitarra do usuário
 
-Os nomes em `AMP_TYPES` e `CAB_TYPES` (`src/data/pedal-spec.ts`) são
-categorias aproximadas, não os nomes oficiais das 9 posições de amp e 8
-posições de cabinet/IR do manual do Cube Baby — não foi possível confirmar
-isso contra o PDF original. Se o usuário compartilhar os nomes exatos,
-atualize esse arquivo.
+É uma **Stratocaster**, com captadores single coil e chave de 5 posições.
+Todo preset é escrito para ela. Quando a gravação original usa guitarra de
+humbucker, o preset precisa compensar — veja a entrada correspondente em
+`calibration.md`.
+
+## O que já foi confirmado no manual (não invente nomes)
+
+- **TYPE**: 9 posições de preamp, **sem nome** no aparelho. É um knob
+  numerado que vai do limpo cristalino ao high gain. As descrições em
+  `AMP_TYPES` são nossa leitura desse gradiente, não nomes oficiais — nunca
+  escreva "estilo Marshall JCM800" como se fosse o nome da posição.
+- **IR CAB**: 9 posições. A primeira **desliga** a simulação de gabinete; as
+  outras 8 são cabinets embutidos, também sem nome, substituíveis por IRs
+  próprios via USB.
+- **MOD**: knob **contínuo**, não um seletor. Centro (5) desliga, a metade
+  de baixo é Chorus e a de cima é Phaser, com intensidade crescendo
+  conforme se afasta do centro. Use `formatMod()` para exibir.
+- Os índices guardados nos presets são posições do knob, então **mudar a
+  ordem de `AMP_TYPES` ou `CAB_TYPES` quebra todos os presets salvos**.

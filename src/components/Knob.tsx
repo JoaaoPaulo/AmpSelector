@@ -38,6 +38,8 @@ interface KnobProps {
   /** Serigrafia acima do knob. */
   mark?: string;
   cap?: "metal" | "cream";
+  /** Knobs de centro (MOD) desenham o arco a partir do meio, não do mínimo. */
+  origin?: "min" | "center";
 }
 
 export function Knob({
@@ -51,6 +53,7 @@ export function Knob({
   discrete = false,
   mark,
   cap = "metal",
+  origin = "min",
 }: KnobProps) {
   const gradientId = useId();
   const drag = useRef<{ y: number; value: number } | null>(null);
@@ -97,6 +100,7 @@ export function Knob({
   const capRadius = center - 13;
   const angle = START_ANGLE + (value / max) * (END_ANGLE - START_ANGLE);
   const tickCount = discrete ? max + 1 : 11;
+  const originAngle = origin === "center" ? (START_ANGLE + END_ANGLE) / 2 : START_ANGLE;
   const pointerStart = pointOnArc(center, capRadius * 0.3, angle);
   const pointerEnd = pointOnArc(center, capRadius * 0.82, angle);
   const isCream = cap === "cream";
@@ -136,7 +140,11 @@ export function Knob({
 
           {Array.from({ length: tickCount }, (_, i) => {
             const tickAngle = START_ANGLE + (i / (tickCount - 1)) * (END_ANGLE - START_ANGLE);
-            const active = tickAngle <= angle + 0.01;
+            const active =
+              origin === "center"
+                ? tickAngle >= Math.min(originAngle, angle) - 0.01 &&
+                  tickAngle <= Math.max(originAngle, angle) + 0.01
+                : tickAngle <= angle + 0.01;
             const from = pointOnArc(center, tickOuter, tickAngle);
             const to = pointOnArc(center, tickInner, tickAngle);
             return (
@@ -161,13 +169,20 @@ export function Knob({
             strokeWidth={3}
             strokeLinecap="round"
           />
-          <path
-            d={arcPath(center, ringRadius, START_ANGLE, angle)}
-            fill="none"
-            stroke={color}
-            strokeWidth={3}
-            strokeLinecap="round"
-          />
+          {Math.abs(angle - originAngle) > 0.5 && (
+            <path
+              d={arcPath(
+                center,
+                ringRadius,
+                Math.min(originAngle, angle),
+                Math.max(originAngle, angle)
+              )}
+              fill="none"
+              stroke={color}
+              strokeWidth={3}
+              strokeLinecap="round"
+            />
+          )}
 
           <circle cx={center} cy={center} r={capRadius + 1.5} fill={`url(#${gradientId}-bezel)`} />
           <circle cx={center} cy={center} r={capRadius} fill={`url(#${gradientId}-cap)`} />

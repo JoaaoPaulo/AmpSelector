@@ -1,4 +1,4 @@
-import { AMP_TYPES, CAB_TYPES, MOD_TYPES } from "@/data/pedal-spec";
+import { AMP_TYPES, CAB_TYPES, formatMod } from "@/data/pedal-spec";
 import type { PresetKnobs } from "@/types/preset";
 
 function Item({ label, value }: { label: string; value: string }) {
@@ -15,7 +15,7 @@ export function PedalSummary({ knobs }: { knobs: PresetKnobs }) {
     <dl className="grid grid-cols-1 gap-3 rounded-xl border border-line bg-surface px-4 py-3 sm:grid-cols-3 sm:gap-4">
       <Item label="Amp" value={AMP_TYPES[knobs.type]} />
       <Item label="Cabinet" value={CAB_TYPES[knobs.irCab]} />
-      <Item label="Modulação" value={MOD_TYPES[knobs.mod]} />
+      <Item label="Modulação" value={formatMod(knobs.mod)} />
     </dl>
   );
 }

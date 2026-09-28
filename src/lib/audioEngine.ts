@@ -1,6 +1,7 @@
 "use client";
 
 import { midiToFrequency } from "./guitar";
+import { MOD_CENTER } from "@/data/pedal-spec";
 import type { PickupPosition, Preset } from "@/types/preset";
 
 /**
@@ -18,17 +19,20 @@ interface AmpProfile {
   postLowpass: number;
 }
 
-/** Índices batem com AMP_TYPES em src/data/pedal-spec.ts. */
+/**
+ * As 9 posições do TYPE, na ordem do pedal: limpo cristalino → high gain.
+ * Índices batem com AMP_TYPES em src/data/pedal-spec.ts.
+ */
 const AMP_PROFILES: AmpProfile[] = [
-  { drive: 0.08, preHighpass: 60, midFreq: 900, midGain: 1, postLowpass: 7000 },
-  { drive: 0.12, preHighpass: 70, midFreq: 1200, midGain: 2, postLowpass: 7500 },
-  { drive: 0.36, preHighpass: 90, midFreq: 1400, midGain: 4, postLowpass: 6000 },
-  { drive: 0.3, preHighpass: 80, midFreq: 800, midGain: 3, postLowpass: 6500 },
-  { drive: 0.42, preHighpass: 100, midFreq: 1800, midGain: 5, postLowpass: 6200 },
-  { drive: 0.55, preHighpass: 110, midFreq: 750, midGain: -3, postLowpass: 5600 },
-  { drive: 0.64, preHighpass: 110, midFreq: 1500, midGain: 4, postLowpass: 5800 },
-  { drive: 0.78, preHighpass: 130, midFreq: 900, midGain: -2, postLowpass: 5200 },
-  { drive: 0.05, preHighpass: 90, midFreq: 2500, midGain: 3, postLowpass: 9000 },
+  { drive: 0.06, preHighpass: 60, midFreq: 900, midGain: 0, postLowpass: 7600 },
+  { drive: 0.12, preHighpass: 70, midFreq: 1000, midGain: 2, postLowpass: 7200 },
+  { drive: 0.2, preHighpass: 80, midFreq: 1100, midGain: 3, postLowpass: 6800 },
+  { drive: 0.3, preHighpass: 85, midFreq: 900, midGain: 3, postLowpass: 6500 },
+  { drive: 0.4, preHighpass: 95, midFreq: 1400, midGain: 4, postLowpass: 6100 },
+  { drive: 0.5, preHighpass: 100, midFreq: 1300, midGain: 4, postLowpass: 5900 },
+  { drive: 0.6, preHighpass: 105, midFreq: 1700, midGain: 5, postLowpass: 5800 },
+  { drive: 0.72, preHighpass: 120, midFreq: 1000, midGain: -1, postLowpass: 5400 },
+  { drive: 0.85, preHighpass: 135, midFreq: 850, midGain: -3, postLowpass: 5100 },
 ];
 
 interface CabProfile {
@@ -38,22 +42,29 @@ interface CabProfile {
   presenceGain: number;
 }
 
-/** Índices batem com CAB_TYPES em src/data/pedal-spec.ts. */
+/**
+ * Os 8 cabinets do pedal (posições 2 a 9 do knob; a posição 1 desliga a
+ * simulação e é tratada antes de chegar aqui). Sem nome no aparelho, então
+ * variam do menor/mais brilhante ao maior/mais grave.
+ */
 const CAB_PROFILES: CabProfile[] = [
+  { highpass: 110, lowpass: 6000, presenceFreq: 3000, presenceGain: 4 },
+  { highpass: 100, lowpass: 5600, presenceFreq: 2700, presenceGain: 3 },
   { highpass: 95, lowpass: 5200, presenceFreq: 2400, presenceGain: 3 },
-  { highpass: 100, lowpass: 5800, presenceFreq: 3000, presenceGain: 4 },
   { highpass: 90, lowpass: 5000, presenceFreq: 2200, presenceGain: 3 },
-  { highpass: 85, lowpass: 5400, presenceFreq: 2600, presenceGain: 3 },
+  { highpass: 85, lowpass: 4800, presenceFreq: 2100, presenceGain: 2 },
   { highpass: 80, lowpass: 4600, presenceFreq: 2000, presenceGain: 2 },
-  { highpass: 75, lowpass: 4400, presenceFreq: 2800, presenceGain: 4 },
-  { highpass: 110, lowpass: 8000, presenceFreq: 3500, presenceGain: 2 },
-  { highpass: 30, lowpass: 16000, presenceFreq: 1000, presenceGain: 0 },
+  { highpass: 75, lowpass: 4400, presenceFreq: 2600, presenceGain: 4 },
+  { highpass: 70, lowpass: 4200, presenceFreq: 1900, presenceGain: 2 },
 ];
 
+/** As 5 posições da chave da Stratocaster. */
 const PICKUP_PROFILES: Record<PickupPosition, { freq: number; gain: number; highpass: number }> = {
-  braço: { freq: 350, gain: 4, highpass: 60 },
-  central: { freq: 800, gain: 1, highpass: 80 },
   ponte: { freq: 2200, gain: 4, highpass: 120 },
+  "ponte+centro": { freq: 1700, gain: 2, highpass: 100 },
+  centro: { freq: 800, gain: 1, highpass: 80 },
+  "centro+braço": { freq: 650, gain: 2, highpass: 70 },
+  braço: { freq: 350, gain: 4, highpass: 60 },
 };
 
 function clampIndex<T>(list: T[], index: number): T {
@@ -126,7 +137,9 @@ export interface Rig {
 export function buildRig(ctx: BaseAudioContext, preset: Preset, destination: AudioNode): Rig {
   const { knobs, footswitches, guitar } = preset;
   const ampOn = footswitches.c;
-  const cabOn = footswitches.a;
+  // A primeira posição do knob IR CAB desliga a simulação de gabinete.
+  const cabOn = footswitches.a && Math.round(knobs.irCab) > 0;
+  const reverbOn = footswitches.a;
   const timeBlockOn = footswitches.b;
 
   const nodes: AudioNode[] = [];
@@ -209,7 +222,7 @@ export function buildRig(ctx: BaseAudioContext, preset: Preset, destination: Aud
 
   // --- Cabinet / IR ---
   if (cabOn) {
-    const cab = clampIndex(CAB_PROFILES, knobs.irCab);
+    const cab = clampIndex(CAB_PROFILES, Math.round(knobs.irCab) - 1);
 
     const cabHighpass = ctx.createBiquadFilter();
     cabHighpass.type = "highpass";
@@ -247,49 +260,56 @@ export function buildRig(ctx: BaseAudioContext, preset: Preset, destination: Aud
   nodes.push(timeBus);
 
   if (timeBlockOn) {
-    const modWet = ctx.createGain();
-    const isPhaser = Math.round(knobs.mod) === 1;
-    const lfo = ctx.createOscillator();
-    const lfoGain = ctx.createGain();
+    // MOD é um knob contínuo: centro desliga, esquerda é Chorus, direita é
+    // Phaser, e a intensidade cresce conforme se afasta do centro.
+    const modOffset = knobs.mod - MOD_CENTER;
+    const modDepth = Math.min(1, Math.abs(modOffset) / MOD_CENTER);
 
-    if (isPhaser) {
-      lfo.frequency.value = 0.4;
-      lfoGain.gain.value = 900;
-      let stage: AudioNode = timeBus;
-      for (let i = 0; i < 4; i++) {
-        const allpass = ctx.createBiquadFilter();
-        allpass.type = "allpass";
-        allpass.frequency.value = 500 + i * 400;
-        allpass.Q.value = 0.6;
-        lfoGain.connect(allpass.frequency);
-        stage.connect(allpass);
-        stage = allpass;
-        nodes.push(allpass);
+    if (modDepth > 0.05) {
+      const isPhaser = modOffset > 0;
+      const modWet = ctx.createGain();
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+
+      if (isPhaser) {
+        lfo.frequency.value = 0.4;
+        lfoGain.gain.value = 900 * modDepth;
+        let stage: AudioNode = timeBus;
+        for (let i = 0; i < 4; i++) {
+          const allpass = ctx.createBiquadFilter();
+          allpass.type = "allpass";
+          allpass.frequency.value = 500 + i * 400;
+          allpass.Q.value = 0.6;
+          lfoGain.connect(allpass.frequency);
+          stage.connect(allpass);
+          stage = allpass;
+          nodes.push(allpass);
+        }
+        modWet.gain.value = 0.6 * modDepth;
+        stage.connect(modWet);
+      } else {
+        const chorusDelay = ctx.createDelay(0.05);
+        chorusDelay.delayTime.value = 0.018;
+        lfo.frequency.value = 0.8;
+        lfoGain.gain.value = 0.005 * modDepth;
+        lfoGain.connect(chorusDelay.delayTime);
+        timeBus.connect(chorusDelay);
+        modWet.gain.value = 0.5 * modDepth;
+        chorusDelay.connect(modWet);
+        nodes.push(chorusDelay);
       }
-      modWet.gain.value = 0.5;
-      stage.connect(modWet);
-    } else {
-      const chorusDelay = ctx.createDelay(0.05);
-      chorusDelay.delayTime.value = 0.018;
-      lfo.frequency.value = 0.8;
-      lfoGain.gain.value = 0.004;
-      lfoGain.connect(chorusDelay.delayTime);
-      timeBus.connect(chorusDelay);
-      modWet.gain.value = 0.35;
-      chorusDelay.connect(modWet);
-      nodes.push(chorusDelay);
+
+      lfo.connect(lfoGain);
+      lfo.start();
+      oscillators.push(lfo);
+      nodes.push(lfo, lfoGain, modWet);
+
+      const modOut = ctx.createGain();
+      timeBus.connect(modOut);
+      modWet.connect(modOut);
+      chain = modOut;
+      nodes.push(modOut);
     }
-
-    lfo.connect(lfoGain);
-    lfo.start();
-    oscillators.push(lfo);
-    nodes.push(lfo, lfoGain, modWet);
-
-    const modOut = ctx.createGain();
-    timeBus.connect(modOut);
-    modWet.connect(modOut);
-    chain = modOut;
-    nodes.push(modOut);
 
     // Delay: TIME, FB e MIX
     const delay = ctx.createDelay(1.2);
@@ -314,7 +334,7 @@ export function buildRig(ctx: BaseAudioContext, preset: Preset, destination: Aud
   }
 
   // --- Reverb (faz parte do bloco do footswitch A) ---
-  if (cabOn && knobs.reverb > 0) {
+  if (reverbOn && knobs.reverb > 0) {
     const convolver = ctx.createConvolver();
     convolver.buffer = createReverbImpulse(ctx);
 
