@@ -22,8 +22,8 @@ Formato sugerido por entrada:
 
 - **Observado**: o preset do solo de Sweet Child O' Mine saiu copiando o rig
   do Slash (Les Paul, humbucker de ponte) e soou errado na guitarra do
-  usuário, que é uma Strato de captadores single coil com chave de 5
-  posições.
+  usuário, que é uma Strato de captadores single coil com chave de 3
+  posições (ponte / centro / braço).
 - **Ajuste a aplicar no futuro**: **todo** preset é para uma Stratocaster.
   Quando a gravação original for de guitarra com humbucker (Les Paul, SG,
   Explorer — Slash, Hetfield, Angus Young, etc.), não copie os valores
@@ -34,3 +34,14 @@ Formato sugerido por entrada:
   o original for humbucker de ponte em solo cantado.
 - **Ainda não confirmado na guitarra** — esse ajuste é uma hipótese até o
   usuário testar e dizer se foi longe demais ou de menos.
+
+## 2026-09-28 — a chave é de 3 posições, não de 5
+
+- **Observado**: o preset de Sultans of Swing foi escrito na posição 2
+  (ponte + centro) de uma chave de 5 vias, que a guitarra do usuário não
+  tem.
+- **Ajuste a aplicar no futuro**: só existem ponte, centro e braço. Quando
+  o timbre original nasce de uma posição intermediária, use o captador mais
+  próximo (o central costuma ser o melhor substituto do ponte+centro) e
+  compense o que faltar no TONE do pedal, dizendo no `reasoning` que é uma
+  aproximação — nunca escreva a posição que ele não pode selecionar.

@@ -9,29 +9,15 @@ const POSITIONS: {
   hint: string;
   angle: number;
 }[] = [
-  { value: "ponte", number: "1", label: "Ponte", hint: "mais agudo e cortante", angle: 38 },
-  {
-    value: "ponte+centro",
-    number: "2",
-    label: "Ponte + centro",
-    hint: "o “quack” da Strato",
-    angle: 19,
-  },
-  { value: "centro", number: "3", label: "Centro", hint: "equilibrado", angle: 0 },
-  {
-    value: "centro+braço",
-    number: "4",
-    label: "Centro + braço",
-    hint: "encorpado com brilho",
-    angle: -19,
-  },
-  { value: "braço", number: "5", label: "Braço", hint: "mais grave e redondo", angle: -38 },
+  { value: "ponte", number: "1", label: "Ponte", hint: "mais agudo e cortante", angle: 32 },
+  { value: "centro", number: "2", label: "Centro", hint: "equilibrado", angle: 0 },
+  { value: "braço", number: "3", label: "Braço", hint: "mais grave e redondo", angle: -32 },
 ];
 
 const PLATE_HEIGHT = 84;
-const PIVOT_X = 96;
+const PIVOT_X = 84;
 const PIVOT_Y = 78;
-const DETENT_RADIUS = 54;
+const DETENT_RADIUS = 52;
 
 interface PickupSwitchProps {
   value: PickupPosition;
@@ -39,12 +25,12 @@ interface PickupSwitchProps {
 }
 
 export function PickupSwitch({ value, onChange }: PickupSwitchProps) {
-  const current = POSITIONS.find((position) => position.value === value) ?? POSITIONS[2];
+  const current = POSITIONS.find((position) => position.value === value) ?? POSITIONS[1];
 
   return (
     <div className="flex flex-col items-center gap-3">
       <div
-        className="relative w-[192px] overflow-hidden rounded-md border border-line"
+        className="relative w-[168px] overflow-hidden rounded-md border border-line"
         style={{
           height: PLATE_HEIGHT,
           background: "linear-gradient(180deg,#1b2231 0%,#10151f 100%)",

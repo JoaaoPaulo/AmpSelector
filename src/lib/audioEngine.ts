@@ -58,12 +58,10 @@ const CAB_PROFILES: CabProfile[] = [
   { highpass: 70, lowpass: 4200, presenceFreq: 1900, presenceGain: 2 },
 ];
 
-/** As 5 posições da chave da Stratocaster. */
+/** As 3 posições da chave da guitarra. */
 const PICKUP_PROFILES: Record<PickupPosition, { freq: number; gain: number; highpass: number }> = {
   ponte: { freq: 2200, gain: 4, highpass: 120 },
-  "ponte+centro": { freq: 1700, gain: 2, highpass: 100 },
   centro: { freq: 800, gain: 1, highpass: 80 },
-  "centro+braço": { freq: 650, gain: 2, highpass: 70 },
   braço: { freq: 350, gain: 4, highpass: 60 },
 };
 

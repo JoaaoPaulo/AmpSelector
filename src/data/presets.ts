@@ -93,7 +93,7 @@ export const PRESETS: Preset[] = [
       fb: 0,
       time: 0,
       mod: 5,
-      tone: 6,
+      tone: 7,
       gain: 2,
       type: 1,
     },
@@ -101,13 +101,13 @@ export const PRESETS: Preset[] = [
     guitar: {
       key: "Ré menor",
       capo: 0,
-      pickup: "ponte+centro",
+      pickup: "centro",
       toneKnob: 8,
       notes:
-        "A posição 2 da chave (ponte + centro) é o coração desse som — é dela que vem o 'quack' metálico da Strato. E toque com os dedos, sem palheta: o ataque da polpa do dedo puxando a corda é o que mais define esse timbre, mais do que qualquer knob. Os solos ficam entre os trastes 5 e 12.",
+        "O som original vem da posição intermediária ponte + centro, que a sua chave de 3 não tem. O captador central sozinho é o que chega mais perto: guarda o brilho sem a aspereza da ponte. Curiosidade útil: a Strato de 1961 do Knopfler também era de 3 posições — na época esse timbre saía equilibrando a chave entre dois cliques. Se a sua alavanca parar no meio, é exatamente esse o som. E toque com os dedos, sem palheta: o ataque da polpa puxando a corda define esse timbre mais que qualquer knob. Os solos ficam entre os trastes 5 e 12.",
     },
     reasoning:
-      "Esse é o preset que mais combina com a sua guitarra: Knopfler gravou com uma Stratocaster de 1961 num Fender Vibrolux limpo, então não tem adaptação a fazer — é single coil pedindo single coil. GAIN em 2 porque o som é praticamente limpo, só com um leve aquecimento nos ataques mais fortes; qualquer distorção mata a clareza que a música precisa. TYPE numa posição limpa e cheia, TONE em 6 para o brilho de sino sem passar de estridente, e tone da guitarra quase aberto (8) porque a articulação depende desse agudo. Cabinet pequeno, imitando o combo do Vibrolux em vez de um gabinete grande. Reverb moderado, do tipo mola. Delay e modulação desligados (footswitch B) — a gravação é seca, o ambiente vem do reverb.",
+      "Esse é o preset que mais combina com a sua guitarra: Knopfler gravou com uma Stratocaster de 1961 num Fender Vibrolux limpo, então é single coil pedindo single coil. GAIN em 2 porque o som é praticamente limpo, só com um leve aquecimento nos ataques mais fortes; qualquer distorção mata a clareza que a música precisa. TYPE numa posição limpa e cheia, e tone da guitarra quase aberto (8) porque a articulação depende desse agudo. Subi o TONE do pedal para 7 justamente para compensar a chave de 3 posições: o captador central sozinho é um pouco mais redondo que a posição intermediária do disco, e esse agudo a mais devolve parte do 'quack'. Cabinet pequeno, imitando o combo do Vibrolux em vez de um gabinete grande. Reverb moderado, do tipo mola. Delay e modulação desligados (footswitch B) — a gravação é seca, o ambiente vem do reverb.",
     feedback: [],
     createdAt: "2026-09-28T00:00:00.000Z",
     updatedAt: "2026-09-28T00:00:00.000Z",

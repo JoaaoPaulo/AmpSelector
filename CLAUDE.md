@@ -67,10 +67,17 @@ o Claude, numa conversa como esta.
 
 ## A guitarra do usuário
 
-É uma **Stratocaster**, com captadores single coil e chave de 5 posições.
-Todo preset é escrito para ela. Quando a gravação original usa guitarra de
-humbucker, o preset precisa compensar — veja a entrada correspondente em
-`calibration.md`.
+É uma **Stratocaster**, com captadores single coil e chave de **3
+posições** (ponte / centro / braço — não 5). Todo preset é escrito para ela.
+
+Duas consequências práticas:
+
+- Quando a gravação original usa guitarra de humbucker, o preset precisa
+  compensar — veja a entrada correspondente em `calibration.md`.
+- As posições intermediárias da Strato de 5 vias (ponte+centro,
+  centro+braço) **não existem aqui**. Quando o tom original depende delas,
+  escolha o captador mais próximo e explique a troca no `reasoning`, em vez
+  de fingir que dá para reproduzir igual.
 
 ## O que já foi confirmado no manual (não invente nomes)
 
